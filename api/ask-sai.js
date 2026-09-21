@@ -1,6 +1,8 @@
 export default async function handler(req, res) {
   if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method not allowed" });
+    return res.status(405).json({
+      error: "Method not allowed"
+    });
   }
 
   try {
@@ -13,9 +15,11 @@ export default async function handler(req, res) {
       });
     }
 
-    if (!process.env.OPENAI_API_KEY) {
+    const apiKey = process.env.OPENAI_API_KEY;
+
+    if (!apiKey) {
       return res.status(500).json({
-        error: "OPENAI_API_KEY no está configurada."
+        error: "OPENAI_API_KEY no está configurada en Vercel."
       });
     }
 
@@ -25,21 +29,13 @@ export default async function handler(req, res) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`
+          "Authorization": `Bearer ${apiKey}`
         },
         body: JSON.stringify({
           model: "gpt-5.6-luna",
-          input: [
-            {
-              role: "system",
-              content:
-                "Eres SAI, el asistente inteligente de SAI Company. Responde con claridad, precisión y utilidad. Si el usuario escribe en español, responde en español."
-            },
-            {
-              role: "user",
-              content: q
-            }
-          ],
+          instructions:
+            "Eres SAI, el asistente inteligente de SAI Company. Responde con claridad, precisión y utilidad. Si el usuario escribe en español, responde en español.",
+          input: q,
           max_output_tokens: 800
         })
       }
@@ -48,21 +44,24 @@ export default async function handler(req, res) {
     const data = await response.json();
 
     if (!response.ok) {
-      console.error(data);
-      return res.status(502).json({
-        error: "No se pudo obtener una respuesta de SAI."
+      console.error("OpenAI:", data);
+
+      return res.status(response.status).json({
+        error: data?.error?.message || "Error de OpenAI."
       });
     }
 
     return res.status(200).json({
-      answer: data.output_text || "SAI no pudo generar una respuesta."
+      answer:
+        data.output_text ||
+        "SAI no pudo generar una respuesta."
     });
 
   } catch (error) {
-    console.error(error);
+    console.error("Server error:", error);
 
     return res.status(500).json({
       error: "Error interno del servidor."
     });
   }
-      }
+}
