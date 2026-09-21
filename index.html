@@ -1,669 +1,629 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>SAI Company — Intelligent Software</title>
-
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    :root {
-      --bg: #05070a;
-      --panel: #0a0e13;
-      --panel-2: #0d1219;
-      --line: #1b2632;
-      --text: #f4f7fb;
-      --muted: #8995a3;
-      --blue: #55a8ff;
-      --blue-2: #1769ff;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.5;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .container {
-      width: min(1180px, 92%);
-      margin: auto;
-    }
-
-    /* NAV */
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      border-bottom: 1px solid var(--line);
-      background: rgba(5, 7, 10, .88);
-      backdrop-filter: blur(16px);
-    }
-
-    nav {
-      height: 76px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .logo {
-      font-size: 15px;
-      font-weight: 800;
-      letter-spacing: 4px;
-    }
-
-    .logo span {
-      color: var(--muted);
-      font-weight: 500;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 30px;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .nav-links a:hover {
-      color: white;
-    }
-
-    .nav-button {
-      border: 1px solid #344252;
-      padding: 11px 18px;
-      border-radius: 8px;
-      font-size: 14px;
-    }
-
-    /* HERO */
-
-    .hero {
-      min-height: 760px;
-      display: flex;
-      align-items: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: "";
-      position: absolute;
-      width: 600px;
-      height: 600px;
-      right: -180px;
-      top: 50px;
-      border-radius: 50%;
-      background: radial-gradient(
-        circle,
-        rgba(40,130,255,.20),
-        transparent 65%
-      );
-      filter: blur(20px);
-    }
-
-    .eyebrow {
-      color: var(--blue);
-      font-size: 12px;
-      letter-spacing: 4px;
-      font-weight: 700;
-      margin-bottom: 24px;
-    }
-
-    h1 {
-      max-width: 850px;
-      font-size: clamp(58px, 9vw, 116px);
-      line-height: .9;
-      letter-spacing: -6px;
-      margin-bottom: 34px;
-    }
-
-    h1 span {
-      color: var(--blue);
-    }
-
-    .hero-text {
-      max-width: 620px;
-      color: var(--muted);
-      font-size: 19px;
-      margin-bottom: 38px;
-    }
-
-    .actions {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-
-    .button {
-      padding: 15px 23px;
-      border-radius: 8px;
-      border: 1px solid #334354;
-      font-weight: 700;
-    }
-
-    .button.primary {
-      background: white;
-      color: black;
-      border-color: white;
-    }
-
-    .button:hover {
-      transform: translateY(-2px);
-    }
-
-    /* STATS */
-
-    .stats {
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-    }
-
-    .stat {
-      padding: 38px 25px;
-      border-right: 1px solid var(--line);
-    }
-
-    .stat:last-child {
-      border-right: 0;
-    }
-
-    .stat-label {
-      color: var(--muted);
-      font-size: 11px;
-      letter-spacing: 3px;
-      margin-bottom: 12px;
-    }
-
-    .stat-number {
-      font-size: 38px;
-      font-weight: 800;
-    }
-
-    /* SECTIONS */
-
-    section {
-      padding: 120px 0;
-    }
-
-    .section-label {
-      color: var(--blue);
-      font-size: 11px;
-      letter-spacing: 3px;
-      margin-bottom: 18px;
-      font-weight: 700;
-    }
-
-    .section-title {
-      font-size: clamp(38px, 6vw, 72px);
-      line-height: 1;
-      letter-spacing: -3px;
-      max-width: 780px;
-      margin-bottom: 22px;
-    }
-
-    .section-text {
-      color: var(--muted);
-      max-width: 650px;
-      font-size: 17px;
-    }
-
-    /* CARDS */
-
-    .cards {
-      margin-top: 60px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .card {
-      min-height: 280px;
-      padding: 32px;
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 4px;
-      transition: .25s;
-    }
-
-    .card:hover {
-      border-color: #38506a;
-      transform: translateY(-4px);
-    }
-
-    .card-number {
-      color: var(--blue);
-      font-size: 13px;
-      margin-bottom: 70px;
-    }
-
-    .card h3 {
-      font-size: 27px;
-      margin-bottom: 12px;
-    }
-
-    .card p {
-      color: var(--muted);
-    }
-
-    /* PLATFORM */
-
-    .platform {
-      background: #080c11;
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-    }
-
-    .platform-box {
-      margin-top: 55px;
-      padding: 40px;
-      min-height: 420px;
-      background:
-        linear-gradient(135deg, rgba(50,130,255,.08), transparent 45%),
-        var(--panel);
-      border: 1px solid var(--line);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .platform-circle {
-      position: absolute;
-      right: 10%;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 260px;
-      height: 260px;
-      border-radius: 50%;
-      border: 1px solid #25415f;
-      box-shadow: 0 0 100px rgba(40,130,255,.18);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      letter-spacing: 5px;
-    }
-
-    .platform-content {
-      position: relative;
-      z-index: 2;
-      max-width: 520px;
-    }
-
-    .platform-content h3 {
-      font-size: 50px;
-      line-height: 1;
-      margin-bottom: 22px;
-    }
-
-    .platform-content p {
-      color: var(--muted);
-      margin-bottom: 28px;
-    }
-
-    /* ASK */
-
-    .ask {
-      text-align: center;
-    }
-
-    .ask-box {
-      margin: 55px auto 0;
-      max-width: 850px;
-      padding: 55px 35px;
-      background: var(--panel);
-      border: 1px solid var(--line);
-    }
-
-    .ask-icon {
-      width: 60px;
-      height: 60px;
-      margin: 0 auto 25px;
-      border: 1px solid #31506d;
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--blue);
-      font-size: 25px;
-      font-weight: 800;
-    }
-
-    .ask-box h3 {
-      font-size: 45px;
-      margin-bottom: 15px;
-    }
-
-    .ask-box p {
-      color: var(--muted);
-      margin-bottom: 30px;
-    }
-
-    /* FOOTER */
-
-    footer {
-      border-top: 1px solid var(--line);
-      padding: 50px 0;
-      color: var(--muted);
-    }
-
-    .footer-logo {
-      color: white;
-      font-weight: 800;
-      letter-spacing: 3px;
-      margin-bottom: 10px;
-    }
-
-    /* MOBILE */
-
-    @media (max-width: 800px) {
-
-      .nav-links {
-        display: none;
-      }
-
-      .hero {
-        min-height: 680px;
-      }
-
-      h1 {
-        font-size: 65px;
-        letter-spacing: -4px;
-      }
-
-      .stats {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .stat:nth-child(2) {
-        border-right: 0;
-      }
-
-      .cards {
-        grid-template-columns: 1fr;
-      }
-
-      .platform-box {
-        padding: 30px;
-      }
-
-      .platform-circle {
-        position: relative;
-        right: auto;
-        top: auto;
-        transform: none;
-        width: 180px;
-        height: 180px;
-        margin: 45px auto 0;
-      }
-
-      .platform-content h3 {
-        font-size: 40px;
-      }
-
-      section {
-        padding: 85px 0;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#05070b">
+<meta name="description" content="SAI Company — Intelligent software for the next generation.">
+<title>SAI COMPANY — Intelligence, automated.</title>
+
+<style>
+:root{
+  --bg:#05070b;
+  --panel:#0a0e15;
+  --panel2:#0d121b;
+  --line:#1b2634;
+  --text:#f4f7fb;
+  --muted:#7f8b9b;
+  --blue:#54a8ff;
+  --blue2:#1677ff;
+  --green:#54e6a0;
+  --radius:24px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  line-height:1.5;
+}
+a{color:inherit;text-decoration:none}
+button,input{font:inherit}
+
+.container{
+  width:min(1160px,calc(100% - 40px));
+  margin:auto;
+}
+
+header{
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:rgba(5,7,11,.78);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(255,255,255,.07);
+}
+.nav{
+  height:76px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.logo{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  font-weight:800;
+  letter-spacing:.18em;
+}
+.logo-mark{
+  width:30px;
+  height:30px;
+  border:1px solid #45627f;
+  display:grid;
+  place-items:center;
+  transform:rotate(45deg);
+  border-radius:7px;
+}
+.logo-mark span{
+  width:10px;
+  height:10px;
+  background:var(--blue);
+  border-radius:3px;
+}
+nav{
+  display:flex;
+  gap:30px;
+  color:var(--muted);
+  font-size:14px;
+}
+nav a:hover{color:white}
+.nav-btn{
+  padding:11px 18px;
+  border:1px solid #2a394b;
+  border-radius:12px;
+  background:#0b111a;
+  color:white;
+}
+.menu{display:none}
+
+.hero{
+  min-height:720px;
+  display:flex;
+  align-items:center;
+  position:relative;
+  overflow:hidden;
+}
+.hero:before{
+  content:"";
+  position:absolute;
+  width:650px;
+  height:650px;
+  background:radial-gradient(circle,rgba(39,130,255,.16),transparent 68%);
+  top:-170px;
+  right:-100px;
+}
+.eyebrow{
+  color:#718197;
+  text-transform:uppercase;
+  letter-spacing:.28em;
+  font-size:12px;
+  font-weight:700;
+  margin-bottom:24px;
+}
+h1{
+  max-width:850px;
+  font-size:clamp(54px,9vw,108px);
+  line-height:.93;
+  letter-spacing:-.065em;
+}
+.gradient{
+  background:linear-gradient(110deg,#fff 20%,#75baff 70%,#347cff);
+  -webkit-background-clip:text;
+  color:transparent;
+}
+.hero-copy{
+  max-width:620px;
+  margin-top:30px;
+  color:var(--muted);
+  font-size:18px;
+}
+.actions{
+  display:flex;
+  gap:12px;
+  margin-top:34px;
+  flex-wrap:wrap;
+}
+.btn{
+  border:1px solid #29384b;
+  background:#0b111a;
+  color:white;
+  padding:14px 21px;
+  border-radius:13px;
+  cursor:pointer;
+  transition:.2s;
+}
+.btn:hover{transform:translateY(-2px);border-color:#4d6d91}
+.btn-primary{
+  background:#f5f7fa;
+  color:#05070b;
+  border-color:white;
+  font-weight:700;
+}
+
+section{padding:100px 0}
+.section-head{
+  display:flex;
+  justify-content:space-between;
+  gap:30px;
+  align-items:end;
+  margin-bottom:35px;
+}
+.section-head h2{
+  font-size:clamp(35px,5vw,62px);
+  line-height:1;
+  letter-spacing:-.05em;
+}
+.section-head p{
+  max-width:420px;
+  color:var(--muted);
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  overflow:hidden;
+}
+.stat{
+  min-height:190px;
+  padding:30px;
+  background:var(--panel);
+  border-right:1px solid var(--line);
+}
+.stat:last-child{border-right:0}
+.stat-label{
+  color:#657286;
+  font-size:11px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+}
+.stat strong{
+  display:block;
+  margin-top:25px;
+  font-size:48px;
+  letter-spacing:-.05em;
+}
+.stat small{color:var(--muted)}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:18px;
+}
+.card{
+  position:relative;
+  min-height:360px;
+  padding:35px;
+  background:linear-gradient(145deg,#0b1018,#070a10);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  overflow:hidden;
+}
+.card:after{
+  content:"";
+  position:absolute;
+  width:240px;
+  height:240px;
+  right:-100px;
+  bottom:-100px;
+  background:radial-gradient(circle,rgba(43,145,255,.20),transparent 70%);
+}
+.card-number{
+  color:#536176;
+  font-size:12px;
+  letter-spacing:.15em;
+}
+.card h3{
+  margin-top:80px;
+  font-size:40px;
+  letter-spacing:-.04em;
+}
+.card p{
+  max-width:470px;
+  color:var(--muted);
+  margin-top:15px;
+}
+.signal{
+  display:flex;
+  gap:5px;
+  margin-top:35px;
+}
+.signal i{
+  display:block;
+  height:5px;
+  flex:1;
+  background:#1b2b3d;
+  border-radius:10px;
+}
+.signal i:nth-child(1),
+.signal i:nth-child(2),
+.signal i:nth-child(3),
+.signal i:nth-child(4){background:#287fd1}
+
+.platform{
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  background:#080c12;
+  overflow:hidden;
+}
+.platform-top{
+  padding:25px 30px;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  justify-content:space-between;
+  color:#8491a3;
+  font-size:13px;
+}
+.platform-body{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  min-height:430px;
+}
+.platform-copy{padding:55px}
+.platform-copy h3{
+  font-size:clamp(40px,6vw,72px);
+  line-height:.95;
+  letter-spacing:-.06em;
+}
+.platform-copy p{
+  color:var(--muted);
+  max-width:450px;
+  margin-top:25px;
+}
+.visual{
+  border-left:1px solid var(--line);
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:
+    linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+  background-size:45px 45px;
+}
+.orbit{
+  width:210px;
+  height:210px;
+  border:1px solid #28435f;
+  border-radius:50%;
+  box-shadow:0 0 80px rgba(37,133,255,.15);
+  display:grid;
+  place-items:center;
+}
+.core{
+  width:65px;
+  height:65px;
+  border-radius:18px;
+  background:linear-gradient(135deg,#7cc1ff,#176cff);
+  box-shadow:0 0 45px rgba(56,143,255,.5);
+  transform:rotate(45deg);
+}
+.core:after{
+  content:"";
+  display:block;
+  width:24px;
+  height:24px;
+  margin:20px;
+  background:white;
+  border-radius:5px;
+}
+
+.ask{
+  text-align:center;
+  padding:110px 30px;
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  background:linear-gradient(145deg,#0a1019,#06080d);
+}
+.ask .eyebrow{margin-bottom:20px}
+.ask h2{
+  font-size:clamp(50px,8vw,100px);
+  letter-spacing:-.065em;
+  line-height:.9;
+}
+.ask p{
+  color:var(--muted);
+  max-width:550px;
+  margin:25px auto;
+}
+.ask-box{
+  max-width:600px;
+  margin:35px auto 0;
+  display:flex;
+  padding:6px;
+  border:1px solid #26364a;
+  border-radius:15px;
+  background:#080c12;
+}
+.ask-box input{
+  flex:1;
+  min-width:0;
+  background:transparent;
+  border:0;
+  outline:0;
+  padding:13px 15px;
+  color:white;
+}
+.ask-box button{
+  border:0;
+  border-radius:10px;
+  padding:0 18px;
+  cursor:pointer;
+  background:white;
+  color:#05070b;
+  font-weight:700;
+}
+
+footer{
+  padding:60px 0 35px;
+  border-top:1px solid var(--line);
+}
+.footer{
+  display:flex;
+  justify-content:space-between;
+  gap:30px;
+  color:#657286;
+  font-size:13px;
+}
+.footer strong{color:white}
+
+@media(max-width:760px){
+  .container{width:min(100% - 28px,1160px)}
+  nav,.nav-btn{display:none}
+  .menu{display:block;border:1px solid #273649;background:#0b1119;color:white;padding:10px 13px;border-radius:10px}
+  .hero{min-height:650px}
+  h1{font-size:58px}
+  .hero-copy{font-size:16px}
+  section{padding:70px 0}
+  .stats{grid-template-columns:1fr 1fr}
+  .stat{min-height:150px;padding:22px}
+  .stat strong{font-size:35px;margin-top:18px}
+  .stat:nth-child(2){border-right:0}
+  .stat:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .grid{grid-template-columns:1fr}
+  .card{min-height:310px}
+  .platform-body{grid-template-columns:1fr}
+  .visual{min-height:330px;border-left:0;border-top:1px solid var(--line)}
+  .platform-copy{padding:35px}
+  .ask{padding:75px 20px}
+  .ask-box{display:flex}
+  .ask-box button{padding:0 13px}
+  .footer{flex-direction:column}
+}
+</style>
 </head>
 
 <body>
 
-  <header>
-    <div class="container">
-      <nav>
-        <a href="#" class="logo">
-          ◇ SAI <span>COMPANY</span>
-        </a>
+<header>
+  <div class="container nav">
+    <a href="#" class="logo">
+      <span class="logo-mark"><span></span></span>
+      SAI COMPANY
+    </a>
 
-        <div class="nav-links">
-          <a href="#platform">Platform</a>
-          <a href="#intelligence">Intelligence</a>
-          <a href="#agent">AI Agent</a>
-        </div>
+    <nav>
+      <a href="#platform">Platform</a>
+      <a href="#intelligence">Intelligence</a>
+      <a href="#agent">AI Agent</a>
+      <a href="#contact">Contact</a>
+    </nav>
 
-        <a href="#platform" class="nav-button">
-          Open Platform ↗
-        </a>
-      </nav>
+    <a class="nav-btn" href="#agent">Open SAI ↗</a>
+    <button class="menu">☰</button>
+  </div>
+</header>
+
+<main>
+
+<section class="hero">
+  <div class="container">
+    <div class="eyebrow">SAI PLATFORM / 2026</div>
+
+    <h1>
+      Intelligence<br>
+      <span class="gradient">in motion.</span>
+    </h1>
+
+    <p class="hero-copy">
+      SAI convierte datos, automatización e inteligencia artificial
+      en sistemas que ayudan a las empresas a operar mejor.
+    </p>
+
+    <div class="actions">
+      <a class="btn btn-primary" href="#platform">Explore platform →</a>
+      <a class="btn" href="#agent">Ask SAI</a>
     </div>
-  </header>
+  </div>
+</section>
 
-
-  <main>
-
-    <section class="hero">
-      <div class="container">
-
-        <div class="eyebrow">
-          SOFTWARE INTELLIGENCE · SAI
-        </div>
-
-        <h1>
-          Build faster.<br>
-          Think <span>smarter.</span>
-        </h1>
-
-        <p class="hero-text">
-          Intelligent software for teams that want to automate work,
-          understand their data and move from idea to execution.
-        </p>
-
-        <div class="actions">
-          <a href="#platform" class="button primary">
-            Explore SAI
-          </a>
-
-          <a href="#intelligence" class="button">
-            See how it works
-          </a>
-        </div>
-
+<section>
+  <div class="container">
+    <div class="stats">
+      <div class="stat">
+        <span class="stat-label">AI RUNS</span>
+        <strong>1,284</strong>
+        <small>processed</small>
       </div>
-    </section>
-
-
-    <div class="container">
-      <div class="stats">
-
-        <div class="stat">
-          <div class="stat-label">AI RUNS</div>
-          <div class="stat-number">1,284</div>
-        </div>
-
-        <div class="stat">
-          <div class="stat-label">AUTOMATIONS</div>
-          <div class="stat-number">47</div>
-        </div>
-
-        <div class="stat">
-          <div class="stat-label">TIME SAVED</div>
-          <div class="stat-number">126h</div>
-        </div>
-
-        <div class="stat">
-          <div class="stat-label">SIGNALS</div>
-          <div class="stat-number">98.4%</div>
-        </div>
-
+      <div class="stat">
+        <span class="stat-label">AUTOMATIONS</span>
+        <strong>47</strong>
+        <small>active flows</small>
+      </div>
+      <div class="stat">
+        <span class="stat-label">TIME SAVED</span>
+        <strong>126h</strong>
+        <small>this month</small>
+      </div>
+      <div class="stat">
+        <span class="stat-label">SIGNALS</span>
+        <strong>98.4%</strong>
+        <small>system health</small>
       </div>
     </div>
+  </div>
+</section>
 
-
-    <section id="intelligence">
-      <div class="container">
-
-        <div class="section-label">
-          01 · INTELLIGENCE
-        </div>
-
-        <h2 class="section-title">
-          Intelligence that moves with your business.
-        </h2>
-
-        <p class="section-text">
-          SAI connects automation, information and decision-making
-          into a single intelligent workflow.
-        </p>
-
-        <div class="cards">
-
-          <article class="card">
-            <div class="card-number">01</div>
-            <h3>Automate</h3>
-            <p>
-              Turn repetitive processes into intelligent workflows
-              that operate continuously.
-            </p>
-          </article>
-
-          <article class="card">
-            <div class="card-number">02</div>
-            <h3>Understand</h3>
-            <p>
-              Transform information and signals into useful,
-              actionable intelligence.
-            </p>
-          </article>
-
-          <article class="card">
-            <div class="card-number">03</div>
-            <h3>Execute</h3>
-            <p>
-              Move from insight to action without unnecessary
-              operational friction.
-            </p>
-          </article>
-
-        </div>
-
-      </div>
-    </section>
-
-
-    <section id="platform" class="platform">
-      <div class="container">
-
-        <div class="section-label">
-          02 · PLATFORM
-        </div>
-
-        <h2 class="section-title">
-          One platform.<br>
-          Infinite workflows.
-        </h2>
-
-        <div class="platform-box">
-
-          <div class="platform-content">
-            <div class="section-label">
-              SAI PLATFORM
-            </div>
-
-            <h3>
-              Intelligence<br>
-              flow.
-            </h3>
-
-            <p>
-              A workspace designed to connect AI,
-              automation and human decisions.
-            </p>
-
-            <a href="#agent" class="button primary">
-              Enter Platform ↗
-            </a>
-          </div>
-
-          <div class="platform-circle">
-            SAI
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
-
-    <section id="agent" class="ask">
-      <div class="container">
-
-        <div class="section-label">
-          03 · AI AGENT
-        </div>
-
-        <h2 class="section-title" style="margin-left:auto;margin-right:auto;">
-          Ask SAI.
-        </h2>
-
-        <p class="section-text" style="margin-left:auto;margin-right:auto;">
-          Your intelligent interface for understanding
-          your workspace and turning questions into action.
-        </p>
-
-        <div class="ask-box">
-
-          <div class="ask-icon">
-            S
-          </div>
-
-          <h3>
-            What should we work on?
-          </h3>
-
-          <p>
-            SAI is ready to analyze your workspace.
-          </p>
-
-          <a href="#" class="button primary">
-            Start with SAI →
-          </a>
-
-        </div>
-
-      </div>
-    </section>
-
-  </main>
-
-
-  <footer>
-    <div class="container">
-
-      <div class="footer-logo">
-        ◇ SAI COMPANY
-      </div>
-
+<section id="intelligence">
+  <div class="container">
+    <div class="section-head">
+      <h2>One system.<br>Many capabilities.</h2>
       <p>
-        Software intelligence for the next generation.
+        Una arquitectura diseñada para conectar inteligencia,
+        automatización y acción dentro de una misma experiencia.
+      </p>
+    </div>
+
+    <div class="grid">
+      <article class="card">
+        <span class="card-number">01 / INTELLIGENCE</span>
+        <h3>Think.</h3>
+        <p>
+          Analiza información, detecta patrones y convierte
+          señales complejas en información útil.
+        </p>
+        <div class="signal">
+          <i></i><i></i><i></i><i></i><i></i>
+        </div>
+      </article>
+
+      <article class="card">
+        <span class="card-number">02 / AUTOMATION</span>
+        <h3>Execute.</h3>
+        <p>
+          Automatiza tareas y procesos repetitivos para que
+          los equipos puedan concentrarse en lo importante.
+        </p>
+        <div class="signal">
+          <i></i><i></i><i></i><i></i><i></i>
+        </div>
+      </article>
+
+      <article class="card">
+        <span class="card-number">03 / ORCHESTRATION</span>
+        <h3>Connect.</h3>
+        <p>
+          Integra información y operaciones en un flujo
+          centralizado y preparado para crecer.
+        </p>
+      </article>
+
+      <article class="card">
+        <span class="card-number">04 / SIGNALS</span>
+        <h3>Decide.</h3>
+        <p>
+          Obtén una visión clara de lo que está pasando
+          y de dónde merece la pena actuar.
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="platform">
+  <div class="container">
+    <div class="platform">
+      <div class="platform-top">
+        <span>SAI PLATFORM</span>
+        <span>● SYSTEM ONLINE</span>
+      </div>
+
+      <div class="platform-body">
+        <div class="platform-copy">
+          <div class="eyebrow">INTELLIGENCE FLOW</div>
+          <h3>Software<br>with a brain.</h3>
+          <p>
+            Una capa inteligente para observar, entender y
+            ejecutar operaciones digitales con mayor velocidad.
+          </p>
+          <a class="btn" href="#agent" style="display:inline-block;margin-top:28px">
+            Enter platform →
+          </a>
+        </div>
+
+        <div class="visual">
+          <div class="orbit">
+            <div class="core"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="agent">
+  <div class="container">
+    <div class="ask">
+      <div class="eyebrow">AI AGENT</div>
+      <h2>Ask <span class="gradient">SAI.</span></h2>
+      <p>
+        Explora tu workspace, analiza actividad o empieza
+        una conversación con tu agente inteligente.
       </p>
 
-      <br>
+      <div class="ask-box">
+        <input id="question" placeholder="What should we work on?">
+        <button onclick="askSai()">Ask →</button>
+      </div>
 
-      <small>
-        © 2026 SAI Company
-      </small>
-
+      <p id="answer" style="min-height:24px"></p>
     </div>
-  </footer>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container">
+    <div class="section-head">
+      <h2>Build what<br>comes next.</h2>
+      <p>
+        SAI COMPANY<br>
+        Software intelligence for the next generation.
+      </p>
+    </div>
+
+    <a class="btn btn-primary" href="mailto:hello@saicompany.ai">
+      Contact SAI →
+    </a>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="container footer">
+    <strong>◇ SAI COMPANY</strong>
+    <span>Software intelligence for the next generation.</span>
+    <span>© 2026 SAI</span>
+  </div>
+</footer>
+
+<script>
+function askSai(){
+  const input=document.getElementById("question");
+  const answer=document.getElementById("answer");
+  const q=input.value.trim();
+
+  if(!q){
+    answer.textContent="Write something for SAI to analyze.";
+    return;
+  }
+
+  answer.textContent="SAI is ready. Connect your AI endpoint to process: “"+q+"”";
+}
+</script>
 
 </body>
-                         </html>
+</html>
